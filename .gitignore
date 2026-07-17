@@ -1,0 +1,8 @@
+.env
+posted_history.json
+run.log
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.session

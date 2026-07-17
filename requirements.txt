@@ -1,0 +1,4 @@
+anthropic>=0.69
+telethon>=1.36
+requests>=2.31
+python-dotenv>=1.0
