@@ -32,9 +32,19 @@ STRICT RULES (never break):
 - This is educational market commentary, NOT financial advice.
 - NEVER promise guaranteed profit, fixed win-rates, or "risk-free" returns.
 - NEVER invent specific fake signals, fabricated results, or fake testimonials.
-- Levels must be framed as scenarios/zones to watch, not certainties.
 - Professional, calm, credible tone. No scam language.
 - End market/news posts with a short risk reminder.
+NO PREDICTIONS (critical — we NEVER forecast):
+- NEVER predict direction or price targets. Do NOT say gold "will", "should",
+  "is going to", "expect", "target", or that it is "headed" up/down.
+- Describe ONLY what is happening NOW: the news, the current price, and the
+  current levels — as neutral facts.
+- When mentioning levels, present BOTH sides even-handedly as "a zone to watch
+  IF price reacts there" — never lean toward which way it will go.
+- The SEO word "forecast" may appear ONLY as the market's/analysts' open question
+  (e.g. "the forecast debate"), NEVER as our own call.
+- No "next week gold will..." style calls; frame the future only as "what to
+  watch", stated neutrally.
 SEO / RANKING RULES (critical):
 - This channel must rank for gold search terms. Weave the target keywords in
   naturally and early (ideally in the first two lines) — but keep it readable.
@@ -153,11 +163,12 @@ POST_TYPES = {
     },
     "weekend_outlook": {
         "hashtag_kind": "news",
-        "keywords": ["gold price forecast", "gold news", "XAUUSD forecast"],
+        "keywords": ["gold news", "gold market news", "gold market today"],
         "instruction": (
-            "Write a WEEKEND GOLD OUTLOOK: the macro/news picture, what to watch for the "
-            "week ahead, and the main risk events on the calendar. Calm, strategic tone. "
-            "110-160 words."
+            "Write a WEEKEND GOLD WRAP: the macro/news picture from the week and the main "
+            "risk events ON THE CALENDAR for the week ahead (dates/events only — NOT a "
+            "prediction of direction). Frame the future strictly as 'what to watch', "
+            "neutrally. Calm tone. 110-160 words."
         ),
     },
     "signals_invite": {

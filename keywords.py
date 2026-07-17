@@ -12,15 +12,15 @@ araması yaptığında kanalın Telegram/Google aramalarında öne çıkması he
 PRIMARY_KEYWORDS = [
     "gold news",
     "gold price today",
-    "gold price forecast",
+    "gold price forecast",   # sadece "piyasanın sorusu" olarak; kendi tahminimiz değil
     "XAUUSD analysis",
     "gold market news",
     "gold signals",
     "XAUUSD signals",
     "live gold price",
-    "gold forecast today",
-    "XAUUSD forecast",
-    "gold price prediction",
+    "gold market today",
+    "gold price update",
+    "gold price live",
     "gold trading signals",
 ]
 
@@ -33,7 +33,7 @@ NEWS_KEYWORDS = [
     "gold price live",
     "why is gold falling",
     "what is moving gold price",
-    "gold forecast this week",
+    "gold market analysis today",
 ]
 
 # Uzun kuyruk (long-tail) - eğitim/haber içerikleri için, rekabeti düşük
