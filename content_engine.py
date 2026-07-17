@@ -7,7 +7,7 @@ import anthropic
 
 import config
 import keywords
-from data_sources import format_market_snapshot
+from data_sources import format_market_snapshot, format_news_snapshot, get_gold_news
 
 # ------------------------------------------------------------------
 # Marka / sektör bağlamı — her prompt'un başına eklenir.
@@ -49,6 +49,9 @@ ENGAGEMENT (make it stop the scroll — without hype or false promises):
 - Give ONE clear, memorable takeaway readers can act on or remember.
 - Reference the REAL numbers from the live data (price, today's range, moving
   averages, RSI) so it reads like fresh, current analysis — not evergreen filler.
+- Where relevant (briefs, event watch, recaps, outlooks), weave in the CURRENT
+  news narrative from the real headlines provided — mention the theme/driver, not
+  a fake quote. Never invent news, numbers, or events beyond what's given.
 - Where natural, end with a light engagement nudge (a question to comment on, or
   "which side are you watching?") to invite replies. Keep it classy, never spammy.
 - Use emojis with intent (3-6), not decoration.
@@ -165,7 +168,7 @@ def _cta_footer(post_type: str) -> str:
     return "➖➖➖➖➖➖➖➖\n" + "\n".join(lines)
 
 
-def generate(post_type: str, gold_data=None, extra_keywords=None) -> str:
+def generate(post_type: str, gold_data=None, extra_keywords=None, news=None) -> str:
     """Belirtilen içerik tipini üretir ve düz metin döndürür."""
     spec = POST_TYPES[post_type]
     kws = list(spec.get("keywords") or [])
@@ -173,6 +176,8 @@ def generate(post_type: str, gold_data=None, extra_keywords=None) -> str:
         kws += list(extra_keywords)
     hashtags = keywords.hashtags_for(spec["hashtag_kind"])
     lang_instr = _LANG_INSTR.get(config.CONTENT_LANG, _LANG_INSTR["en"])
+    if news is None:
+        news = get_gold_news()
 
     prompt = f"""{BRAND_CONTEXT}
 {COMPLIANCE}
@@ -182,6 +187,8 @@ LANGUAGE: {lang_instr}
 
 LIVE MARKET DATA:
 {format_market_snapshot(gold_data)}
+
+{format_news_snapshot(news)}
 
 TASK:
 {spec['instruction']}
