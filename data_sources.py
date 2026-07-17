@@ -141,6 +141,45 @@ def get_gold_news(query="gold price XAUUSD", limit=5):
         return []
 
 
+def get_driver_news(limit=6):
+    """Altını hareket ettiren ANA sürücüleri yakalamak için birden çok sorguyu
+    birleştirir (fiyat + Fed/enflasyon + jeopolitik). Tekrarları eler.
+    """
+    seen, out = set(), []
+    for q in ("gold price XAUUSD",
+              "gold Fed rate inflation",
+              "gold safe haven geopolitical"):
+        for n in get_gold_news(q, 4):
+            key = n["title"].lower()[:60]
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(n)
+            if len(out) >= limit:
+                return out
+    return out
+
+
+# Altını güçlü etkileyen yüksek-etkili haber anahtarları (breaking tespiti için)
+_HIGH_IMPACT = (
+    "fed", "rate cut", "rate hike", "fomc", "cpi", "inflation", "nfp",
+    "payroll", "war", "middle east", "geopolit", "record high", "record-high",
+    "all-time high", "crash", "plunge", "surge", "soars", "tumbles",
+    "biggest weekly", "safe haven", "recession", "tariff", "yields",
+)
+
+
+def high_impact_headline(news):
+    """Haber listesinde yüksek-etkili bir manşet varsa onu döndürür, yoksa None.
+    breaking_news tipini otomatik tetiklemek için kullanılır.
+    """
+    for n in news or []:
+        t = n.get("title", "").lower()
+        if any(k in t for k in _HIGH_IMPACT):
+            return n
+    return None
+
+
 def format_news_snapshot(news) -> str:
     """Haber başlıklarını prompt'a gömmek için biçimlendirir."""
     if not news:

@@ -7,7 +7,8 @@ import anthropic
 
 import config
 import keywords
-from data_sources import format_market_snapshot, format_news_snapshot, get_gold_news
+from data_sources import (format_market_snapshot, format_news_snapshot,
+                          get_gold_news, get_driver_news)
 
 # ------------------------------------------------------------------
 # Marka / sektör bağlamı — her prompt'un başına eklenir.
@@ -94,6 +95,23 @@ POST_TYPES = {
         "instruction": (
             "Write an END-OF-DAY GOLD NEWS RECAP: the day's main gold story from the real "
             "headlines, how the price moved, and the key thing to watch next. 100-150 words."
+        ),
+    },
+    "breaking_news": {
+        "hashtag_kind": "news",
+        "keywords": ["gold news today", "gold price", "XAUUSD news", "gold price forecast"],
+        "instruction": (
+            "Write a NEWS-HOOK post built around the SINGLE biggest gold driver in the "
+            "real headlines right now (e.g. a Fed decision, inflation data, a "
+            "geopolitical/Middle East escalation, a record high, or a sharp sell-off).\n"
+            "1) Open with a strong, credible news hook naming the real driver.\n"
+            "2) In 2-3 short lines explain what happened and why it matters for the gold "
+            "price right now (tie in the live price).\n"
+            "3) Pivot to value: in fast-moving news like this, timely gold news and "
+            "analysis matter — invite readers to JOIN/FOLLOW the channel for real-time "
+            "updates via the link below (link added automatically — write no URL).\n"
+            "Credible, not clickbait. Do NOT fabricate beyond the headlines. Do NOT use "
+            "the word 'VIP'. 90-140 words."
         ),
     },
     "economic_event_watch": {
@@ -197,7 +215,8 @@ def generate(post_type: str, gold_data=None, extra_keywords=None, news=None) -> 
     hashtags = keywords.hashtags_for(spec["hashtag_kind"])
     lang_instr = _LANG_INSTR.get(config.CONTENT_LANG, _LANG_INSTR["en"])
     if news is None:
-        news = get_gold_news()
+        # breaking_news için ana sürücüleri yakalayan geniş haber seti çekilir
+        news = get_driver_news() if post_type == "breaking_news" else get_gold_news()
 
     prompt = f"""{BRAND_CONTEXT}
 {COMPLIANCE}

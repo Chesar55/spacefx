@@ -27,7 +27,10 @@ for _stream in (sys.stdout, sys.stderr):
 import config
 import content_engine
 import keywords
-from data_sources import get_gold_data
+from data_sources import get_gold_data, get_driver_news, high_impact_headline
+
+# Yüksek-etkili haber tespit edilince 'breaking_news'e yükseltilebilecek slot tipleri
+_UPGRADABLE_TYPES = {"news_brief", "news_pulse", "news_recap"}
 
 HISTORY_FILE = os.path.join(os.path.dirname(__file__), "posted_history.json")
 LOG_FILE = os.path.join(os.path.dirname(__file__), "run.log")
@@ -66,6 +69,12 @@ def _already_posted_today(slot: str, post_type: str) -> bool:
     return False
 
 
+def _posted_type_today(post_type: str) -> bool:
+    today = dt.date.today().isoformat()
+    return any(e.get("date") == today and e.get("type") == post_type
+              for e in _load_history())
+
+
 def _auto_slot() -> str:
     """Şu anki saate en yakın slotu döndürür."""
     hour = dt.datetime.now().hour
@@ -95,6 +104,18 @@ def run(slot=None, forced_type=None, dry=False):
         _log(f"Bugün '{slot}/{post_type}' zaten atılmış. Tekrar atılmıyor.")
         return
 
+    # Büyük haber tespiti: bir haber slotu, yüksek-etkili manşet varsa 'breaking_news'e
+    # yükselir (günde en fazla 1 kez). Haberleri burada bir kez çekip generate'e veririz.
+    driver_news = None
+    if (config.BREAKING_NEWS_AUTO and not forced_type
+            and post_type in _UPGRADABLE_TYPES
+            and not _posted_type_today("breaking_news")):
+        driver_news = get_driver_news()
+        hit = high_impact_headline(driver_news)
+        if hit:
+            _log(f"🔴 Yüksek-etkili haber → breaking_news'e yükseltiliyor: {hit['title'][:80]}")
+            post_type = "breaking_news"
+
     _log(f"İçerik üretiliyor: slot={slot} type={post_type} lang={config.CONTENT_LANG}")
 
     # Eğitim içerikleri için longtail anahtar kelimeyi rotasyonla seç (çeşitlilik)
@@ -104,7 +125,8 @@ def run(slot=None, forced_type=None, dry=False):
                                  k=min(2, len(keywords.LONGTAIL_KEYWORDS)))
 
     gold = get_gold_data()
-    text = content_engine.generate(post_type, gold_data=gold, extra_keywords=extra_kw)
+    text = content_engine.generate(post_type, gold_data=gold,
+                                   extra_keywords=extra_kw, news=driver_news)
 
     print("\n" + "=" * 60 + "\n" + text + "\n" + "=" * 60 + "\n")
 

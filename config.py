@@ -24,6 +24,11 @@ FREE_CHANNEL_LINK = os.getenv("FREE_CHANNEL_LINK", "https://t.me/FxSpaceGlobal")
 CONTENT_LANG = os.getenv("CONTENT_LANG", "en").lower()
 DRY_RUN = os.getenv("DRY_RUN", "false").lower() in ("1", "true", "yes")
 
+# Büyük/yüksek-etkili bir altın haberi tespit edilirse o günün bir haber slotunu
+# otomatik olarak 'breaking_news' (haber + kanala davet CTA) tipine yükseltir.
+# Günde en fazla 1 kez (spam önleme). Kapatmak için .env'de BREAKING_NEWS_AUTO=false.
+BREAKING_NEWS_AUTO = os.getenv("BREAKING_NEWS_AUTO", "true").lower() in ("1", "true", "yes")
+
 # --- Yayın slotları (6 saatte bir = günde 4 post) ---
 # Slot adı -> saat (VPS saat dilimine göre; cron bu saatlere kurulur)
 SLOT_HOURS = {
