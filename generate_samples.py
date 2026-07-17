@@ -13,9 +13,9 @@ from data_sources import get_gold_data
 
 gold = get_gold_data()
 order = [
-    "market_open_brief", "key_levels", "economic_event_watch",
-    "educational", "midday_update", "weekly_recap",
-    "weekend_outlook", "vip_soft_cta",
+    "news_brief", "news_pulse", "news_recap", "economic_event_watch",
+    "educational", "key_levels", "weekly_recap", "weekend_outlook",
+    "signals_invite",
 ]
 for pt in order:
     extra = None

@@ -1,56 +1,74 @@
 """SEO anahtar kelime bankası ve hashtag setleri.
 
-Bu kelimeler, altın (XAUUSD) sinyal sektöründe Google'da öne çıkmak için
-hedeflediğimiz aramalardır. İçerik motoru her post için ilgili kelimeleri
-metne ve hashtag'lere doğal biçimde yerleştirir.
+STRATEJİ (2026-07-17 güncellendi): Bu bir SEO çalışması — insanlar altın/forex
+araması yaptığında kanalın Telegram/Google aramalarında öne çıkması hedeflenir.
+- HABER odaklı, yüksek aramalı terimler önceliklidir (gold news, gold price today...).
+- "VIP" kelimesinden KAÇINILIR: aşırı "VIP" kullanımı kanalın arama sıralamasını
+  düşürüyor. Promosyon dilinde "premium/full signals" tercih edilir, hashtag'lerde
+  VIP hiç kullanılmaz.
 """
 
-# Yüksek hacimli / ana anahtar kelimeler
+# Yüksek hacimli / ana anahtar kelimeler (haber + fiyat odaklı, VIP yok)
 PRIMARY_KEYWORDS = [
+    "gold news",
+    "gold price today",
+    "gold price forecast",
+    "XAUUSD analysis",
+    "gold market news",
     "gold signals",
     "XAUUSD signals",
-    "forex gold signals",
+    "live gold price",
+    "gold forecast today",
+    "XAUUSD forecast",
+    "gold price prediction",
     "gold trading signals",
-    "free gold signals",
-    "XAUUSD analysis",
-    "gold price today",
-    "buy sell gold signal",
-    "gold signals telegram",
-    "live gold signals",
 ]
 
-# Uzun kuyruk (long-tail) - eğitim içerikleri için, rekabeti düşük
+# Haber içerikleri için (haber analizi postlarında öne çıkar)
+NEWS_KEYWORDS = [
+    "gold news today",
+    "gold market update",
+    "XAUUSD news",
+    "gold price analysis",
+    "gold price live",
+    "why is gold falling",
+    "what is moving gold price",
+    "gold forecast this week",
+]
+
+# Uzun kuyruk (long-tail) - eğitim/haber içerikleri için, rekabeti düşük
 LONGTAIL_KEYWORDS = [
-    "how to trade gold with signals",
-    "best XAUUSD trading strategy",
-    "what is XAUUSD",
-    "gold support and resistance levels",
-    "how to read gold signals",
-    "gold trading for beginners",
-    "XAUUSD scalping strategy",
+    "why is gold falling today",
+    "what is moving the gold price",
+    "will gold break 4000",
+    "gold price after Fed decision",
     "how CPI affects gold price",
-    "NFP gold trading",
-    "gold vs dollar correlation",
+    "gold safe haven demand",
+    "gold vs dollar today",
+    "how to read gold news",
+    "gold support and resistance levels",
+    "best XAUUSD trading strategy",
+    "gold trading for beginners",
     "risk management in gold trading",
-    "gold trading session times",
 ]
 
 # Ekonomik olay odaklı kelimeler
 EVENT_KEYWORDS = [
-    "gold NFP forecast",
+    "gold NFP reaction",
     "gold CPI reaction",
     "Fed decision gold impact",
     "gold FOMC analysis",
     "XAUUSD news trading",
 ]
 
-# Post tipine göre hashtag setleri (Telegram + t.me/s indexlemesi için)
+# Post tipine göre hashtag setleri — SEO odaklı, aranabilir terimler; VIP YOK.
 HASHTAGS = {
-    "core": ["#XAUUSD", "#Gold", "#GoldSignals", "#ForexSignals"],
-    "analysis": ["#XAUUSD", "#GoldAnalysis", "#GoldTrading", "#Forex", "#TradingSignals"],
-    "education": ["#GoldTrading", "#ForexEducation", "#TradingTips", "#XAUUSD", "#LearnForex"],
-    "event": ["#XAUUSD", "#Gold", "#NFP", "#CPI", "#FOMC", "#ForexNews"],
-    "cta": ["#GoldSignals", "#VIPSignals", "#XAUUSD", "#ForexSignals", "#SpaceFX"],
+    "core": ["#XAUUSD", "#Gold", "#GoldSignals", "#GoldNews"],
+    "analysis": ["#XAUUSD", "#GoldPrice", "#GoldAnalysis", "#GoldForecast", "#GoldNews"],
+    "education": ["#GoldTrading", "#XAUUSD", "#GoldMarket", "#TradingTips"],
+    "event": ["#XAUUSD", "#GoldNews", "#CPI", "#FOMC", "#Gold"],
+    "news": ["#XAUUSD", "#GoldNews", "#GoldPrice", "#GoldForecast", "#Gold"],
+    "cta": ["#GoldSignals", "#XAUUSD", "#GoldNews", "#GoldPrice", "#GoldTrading"],
 }
 
 

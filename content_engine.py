@@ -14,24 +14,31 @@ from data_sources import format_market_snapshot, format_news_snapshot, get_gold_
 # ------------------------------------------------------------------
 BRAND_CONTEXT = """\
 BRAND: SpaceFX Pro (spacefxpro.com)
-SECTOR: Forex & Gold (XAUUSD) trading signals + market education.
-CHANNEL: A public Telegram channel that posts gold market analysis and
-promotes the VIP signal group. Audience: retail traders following XAUUSD.
-POSITIONING: Transparent, disciplined, education-first. We stand out through
-clear key levels, reasoning, and honest risk talk — NOT hype.
+SECTOR: Forex & Gold (XAUUSD) market NEWS and analysis.
+CHANNEL: A public Telegram channel focused on daily gold market NEWS and analysis.
+Audience: retail traders searching for gold news, gold price updates and XAUUSD
+analysis. This is primarily an SEO play — content must help the channel surface
+when people search gold/forex terms.
+POSITIONING: Transparent, timely, news-first. We explain what is moving gold RIGHT
+NOW and what it means — clear, credible, no hype.
 """
 
 # ------------------------------------------------------------------
-# Uyumluluk kuralları — yanıltıcı finansal vaatler yasak.
+# Uyumluluk + SEO kuralları — yanıltıcı finansal vaatler yasak, VIP minimum.
 # ------------------------------------------------------------------
 COMPLIANCE = """\
 STRICT RULES (never break):
 - This is educational market commentary, NOT financial advice.
 - NEVER promise guaranteed profit, fixed win-rates, or "risk-free" returns.
 - NEVER invent specific fake signals, fabricated results, or fake testimonials.
-- Support/resistance levels must be framed as scenarios/zones to watch, not certainties.
-- Always keep a professional, calm, credible tone. Hype words are fine sparingly (🚀) but no scam language.
-- End market/analysis posts with a short risk reminder.
+- Levels must be framed as scenarios/zones to watch, not certainties.
+- Professional, calm, credible tone. No scam language.
+- End market/news posts with a short risk reminder.
+SEO / RANKING RULES (critical):
+- This channel must rank for gold search terms. Weave the target keywords in
+  naturally and early (ideally in the first two lines) — but keep it readable.
+- AVOID the word "VIP". Overusing "VIP" pushes the channel DOWN in search. Use
+  "premium" or "full signals" AT MOST once, and only in promo posts.
 """
 
 _LANG_INSTR = {
@@ -61,77 +68,89 @@ ENGAGEMENT (make it stop the scroll — without hype or false promises):
 # İçerik tipleri
 # ------------------------------------------------------------------
 POST_TYPES = {
-    "market_open_brief": {
-        "hashtag_kind": "analysis",
-        "keywords": ["XAUUSD analysis", "gold price today", "gold signals"],
+    "news_brief": {
+        "hashtag_kind": "news",
+        "keywords": ["gold news", "gold price today", "XAUUSD analysis", "gold price forecast"],
         "instruction": (
-            "Write a concise PRE-MARKET gold (XAUUSD) brief for today. "
-            "Cover: current bias (bullish/bearish/neutral) with reasoning, one key "
-            "support zone and one key resistance zone to watch, and what could move "
-            "price during the London/US sessions. 90-140 words. Use 3-5 relevant emojis."
+            "Write a MORNING GOLD NEWS BRIEF. Lead with the single biggest driver "
+            "moving gold RIGHT NOW, taken from the real headlines provided. Explain in "
+            "plain terms what's happening and what it means for the gold price today, "
+            "tying in the live price. Keep one short line on the level/zone to watch. "
+            "90-140 words. Reference the real news theme; never invent facts."
         ),
     },
-    "key_levels": {
-        "hashtag_kind": "analysis",
-        "keywords": ["gold support and resistance levels", "XAUUSD signals", "buy sell gold signal"],
+    "news_pulse": {
+        "hashtag_kind": "news",
+        "keywords": ["gold market news", "gold price analysis", "XAUUSD news", "live gold price"],
         "instruction": (
-            "Write a KEY LEVELS update for XAUUSD. Present 2 support zones and 2 "
-            "resistance zones as scenarios (e.g. 'a break above X opens the door to Y'). "
-            "Explain the intraday bias briefly. 80-130 words. Structure with line breaks."
+            "Write a MIDDAY GOLD NEWS PULSE: what is the market reacting to right now "
+            "(from the real headlines) and how the gold price is responding live. Punchy "
+            "and current. 70-110 words."
+        ),
+    },
+    "news_recap": {
+        "hashtag_kind": "news",
+        "keywords": ["gold news today", "gold market update", "gold price forecast"],
+        "instruction": (
+            "Write an END-OF-DAY GOLD NEWS RECAP: the day's main gold story from the real "
+            "headlines, how the price moved, and the key thing to watch next. 100-150 words."
         ),
     },
     "economic_event_watch": {
         "hashtag_kind": "event",
         "keywords": keywords.EVENT_KEYWORDS[:3],
         "instruction": (
-            "Write an ECONOMIC EVENT WATCH post for gold traders. Pick a relevant "
-            "recurring high-impact driver (CPI, NFP, FOMC/Fed, PPI, jobless claims) and "
-            "explain how it typically affects XAUUSD and what traders should watch. "
-            "If no live event today, frame it as general preparation. 90-140 words."
+            "Write an ECONOMIC EVENT WATCH for gold traders. If the real headlines point "
+            "to an upcoming or recent high-impact driver (CPI, NFP, FOMC/Fed, PPI, jobless "
+            "claims), center on it; otherwise pick the most relevant recurring one. Explain "
+            "how it moves XAUUSD and what to watch. 90-140 words."
         ),
     },
     "educational": {
         "hashtag_kind": "education",
         "keywords": None,  # rotasyonla longtail'den seçilir (main tarafında)
         "instruction": (
-            "Write a short EDUCATIONAL post that teaches ONE concrete gold-trading "
-            "concept for beginners-to-intermediate traders. Make it genuinely useful "
-            "and skimmable. 100-150 words. End with a light nudge to follow for more."
+            "Write a short EDUCATIONAL post that teaches ONE concrete gold-trading or "
+            "gold-news-reading concept for beginner-to-intermediate traders. Genuinely "
+            "useful and skimmable. 100-150 words. End with a light nudge to follow for more."
         ),
     },
-    "midday_update": {
+    "key_levels": {
         "hashtag_kind": "analysis",
-        "keywords": ["live gold signals", "XAUUSD analysis"],
+        "keywords": ["gold price forecast", "XAUUSD analysis", "gold support and resistance levels"],
         "instruction": (
-            "Write a MID-SESSION XAUUSD update: how price has behaved so far vs the "
-            "morning bias, and what to watch into the close. 70-110 words."
+            "Write a KEY LEVELS update for XAUUSD. Present 2 support zones and 2 "
+            "resistance zones as scenarios (e.g. 'a break above X opens the door to Y'), "
+            "briefly tying them to the current news backdrop. 80-130 words."
         ),
     },
     "weekly_recap": {
-        "hashtag_kind": "analysis",
-        "keywords": ["gold trading signals", "XAUUSD analysis"],
+        "hashtag_kind": "news",
+        "keywords": ["gold news today", "gold price forecast", "XAUUSD analysis"],
         "instruction": (
-            "Write a WEEKLY RECAP for XAUUSD: the week's dominant theme/direction, key "
-            "levels that mattered, and a forward look at next week's focus. 110-160 words."
+            "Write a WEEKLY GOLD RECAP: the week's dominant news theme/direction (from the "
+            "real headlines), how the price behaved, and a forward look at next week's news "
+            "focus and risk events. 110-160 words."
         ),
     },
     "weekend_outlook": {
-        "hashtag_kind": "analysis",
-        "keywords": ["XAUUSD analysis", "gold price today"],
+        "hashtag_kind": "news",
+        "keywords": ["gold price forecast", "gold news", "XAUUSD forecast"],
         "instruction": (
-            "Write a WEEKEND OUTLOOK for gold: the macro picture, key zones for the week "
-            "ahead, and the main risk events on the calendar. Calm, strategic tone. 110-160 words."
+            "Write a WEEKEND GOLD OUTLOOK: the macro/news picture, what to watch for the "
+            "week ahead, and the main risk events on the calendar. Calm, strategic tone. "
+            "110-160 words."
         ),
     },
-    "vip_soft_cta": {
+    "signals_invite": {
         "hashtag_kind": "cta",
-        "keywords": ["gold signals telegram", "free gold signals"],
+        "keywords": ["gold signals", "gold price analysis", "free gold signals"],
         "instruction": (
-            "Write a SOFT promotional post inviting followers to the VIP signal group. "
-            "Lead with value (what members get: detailed entries, key levels, market "
-            "context, risk guidance) — NOT hype or profit promises. 70-110 words. "
-            "End by inviting them to tap the VIP link below to join (the link is added "
-            "automatically after your text — do NOT write any URL yourself)."
+            "Write a SOFT invite to the premium gold signals room. Lead with value "
+            "(detailed entries, key levels, live market context, risk guidance) — NOT hype "
+            "or profit promises. Use the word 'VIP' zero times; say 'premium' or 'full "
+            "signals' at most once. 70-110 words. End by inviting them to tap the link "
+            "below (the link is added automatically — do NOT write any URL yourself)."
         ),
     },
 }
@@ -144,27 +163,28 @@ def _client():
 def _cta_footer(post_type: str) -> str:
     """Mesaj sonuna eklenen estetik CTA + link bloğu (dile duyarlı).
 
-    VIP CTA postlarında VIP linki öne çıkar; diğerlerinde büyütmek istediğimiz
-    free kanalı öne çıkarır, VIP'i ikincil sunar.
+    SEO gereği "VIP" kelimesi footer'da HİÇ geçmez ("premium/full signals" denir).
+    Promo postunda premium link öne çıkar; diğerlerinde büyütülmek istenen free
+    kanalı öne çıkarır, premium ikincildir.
     """
-    vip = config.VIP_LINK
+    prem = config.VIP_LINK
     free = config.FREE_CHANNEL_LINK
     tr = config.CONTENT_LANG == "tr"
 
-    if post_type == "vip_soft_cta":
+    if post_type == "signals_invite":
         if tr:
-            lines = [f"💎 VIP'e katıl → {vip}",
-                     f"📲 Hazır değil misin? Ücretsiz kanal → {free}"]
+            lines = [f"💎 Premium altın sinyalleri → {prem}",
+                     f"📲 Günlük ücretsiz altın haber & analiz → {free}"]
         else:
-            lines = [f"💎 Join VIP now → {vip}",
-                     f"📲 Not ready yet? Free channel → {free}"]
+            lines = [f"💎 Get premium gold signals → {prem}",
+                     f"📲 Free daily gold news & analysis → {free}"]
     else:
         if tr:
-            lines = [f"📲 Günlük ücretsiz altın analizi → {free}",
-                     f"💎 VIP sinyaller & net girişler → {vip}"]
+            lines = [f"📲 Günlük ücretsiz altın haber & analiz → {free}",
+                     f"💎 Premium gold signals → {prem}"]
         else:
-            lines = [f"📲 Free daily gold analysis → {free}",
-                     f"💎 VIP signals & live entries → {vip}"]
+            lines = [f"📲 Free daily gold news & analysis → {free}",
+                     f"💎 Premium gold signals → {prem}"]
     return "➖➖➖➖➖➖➖➖\n" + "\n".join(lines)
 
 
@@ -193,8 +213,10 @@ LIVE MARKET DATA:
 TASK:
 {spec['instruction']}
 
-SEO: Naturally weave in some of these search terms (do NOT keyword-stuff, keep it
-readable): {', '.join(kws) if kws else '(general gold trading terms)'}
+SEO (important — this is a search-ranking play): Weave these target search terms in
+naturally and early, especially the headline and first two lines (do NOT keyword-stuff,
+keep it readable): {', '.join(kws) if kws else '(general gold news terms)'}
+Reminder: do NOT use the word "VIP" anywhere.
 
 FORMAT RULES:
 - Plain text suitable for a Telegram message (NO markdown symbols like * or _).

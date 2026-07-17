@@ -35,43 +35,44 @@ SLOT_HOURS = {
 
 # Haftalık içerik planı: (haftanın günü 0=Pzt ... 6=Paz, slot) -> içerik tipi
 # İçerik tipleri content_engine.POST_TYPES içinde tanımlıdır.
-# Hafta içi: canlı piyasa içeriği. Hafta sonu (piyasa kapalı): evergreen içerik.
+# STRATEJİ: HABER ağırlıklı (SEO). Teknik (key_levels) haftada 1, promo
+# (signals_invite) haftada 2 — "VIP" izlenimini ve promo yorgunluğunu azaltmak için.
 WEEKLY_PLAN = {
     # Pazartesi
     (0, "night"): "educational",
-    (0, "morning"): "market_open_brief",
-    (0, "midday"): "key_levels",
-    (0, "evening"): "midday_update",
+    (0, "morning"): "news_brief",
+    (0, "midday"): "news_pulse",
+    (0, "evening"): "news_recap",
     # Salı
-    (1, "night"): "vip_soft_cta",
-    (1, "morning"): "market_open_brief",
+    (1, "night"): "educational",
+    (1, "morning"): "news_brief",
     (1, "midday"): "economic_event_watch",
-    (1, "evening"): "key_levels",
+    (1, "evening"): "news_recap",
     # Çarşamba
     (2, "night"): "educational",
-    (2, "morning"): "market_open_brief",
-    (2, "midday"): "key_levels",
-    (2, "evening"): "midday_update",
+    (2, "morning"): "news_brief",
+    (2, "midday"): "key_levels",          # haftanın tek teknik postu
+    (2, "evening"): "news_recap",
     # Perşembe
-    (3, "night"): "educational",
-    (3, "morning"): "market_open_brief",
+    (3, "night"): "signals_invite",       # promo 1/2
+    (3, "morning"): "news_brief",
     (3, "midday"): "economic_event_watch",
-    (3, "evening"): "key_levels",
+    (3, "evening"): "news_recap",
     # Cuma
-    (4, "night"): "vip_soft_cta",
-    (4, "morning"): "market_open_brief",
-    (4, "midday"): "key_levels",
+    (4, "night"): "educational",
+    (4, "morning"): "news_brief",
+    (4, "midday"): "news_pulse",
     (4, "evening"): "weekly_recap",
-    # Cumartesi (piyasa kapalı — evergreen)
+    # Cumartesi (piyasa kapalı — haber + eğitim)
     (5, "night"): "educational",
-    (5, "morning"): "educational",
-    (5, "midday"): "vip_soft_cta",
-    (5, "evening"): "educational",
-    # Pazar (piyasa kapalı — evergreen + haftaya bakış)
+    (5, "morning"): "news_recap",
+    (5, "midday"): "educational",
+    (5, "evening"): "signals_invite",     # promo 2/2
+    # Pazar (piyasa kapalı — haftaya bakış)
     (6, "night"): "educational",
     (6, "morning"): "educational",
     (6, "midday"): "weekend_outlook",
-    (6, "evening"): "vip_soft_cta",
+    (6, "evening"): "news_brief",
 }
 
 
